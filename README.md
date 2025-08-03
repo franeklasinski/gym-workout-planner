@@ -40,6 +40,22 @@ Kompleksowa aplikacja webowa do planowania i śledzenia treningów siłowniowych
 - **Glassmorphism** - nowoczesne efekty wizualne
 - **Animacje** - płynne przejścia i hover efekty
 
+<img width="1469" height="922" alt="Zrzut ekranu 2025-08-3 o 11 00 09" src="https://github.com/user-attachments/assets/40941df9-bc2c-4fd7-994e-05e1aabc4832" />
+
+<img width="1470" height="598" alt="Zrzut ekranu 2025-08-3 o 11 00 35" src="https://github.com/user-attachments/assets/aa685e98-d2c1-45b6-ae65-a23451679585" />
+
+<img width="1470" height="866" alt="Zrzut ekranu 2025-08-3 o 11 00 54" src="https://github.com/user-attachments/assets/84c19c44-8140-4a7b-b535-4646f5c92da2" />
+
+<img width="1470" height="872" alt="Zrzut ekranu 2025-08-3 o 11 01 08" src="https://github.com/user-attachments/assets/b9c01260-34e9-4287-8fae-92e31c408e81" />
+
+<img width="1470" height="864" alt="Zrzut ekranu 2025-08-3 o 11 01 21" src="https://github.com/user-attachments/assets/e6d1f4c9-108f-4d04-86c0-91f1fec4b764" />
+
+<img width="1470" height="705" alt="Zrzut ekranu 2025-08-3 o 11 01 43" src="https://github.com/user-attachments/assets/c24c8034-1ede-4f84-be7c-e0d2accb4525" />
+
+<img width="1470" height="870" alt="Zrzut ekranu 2025-08-3 o 11 01 51" src="https://github.com/user-attachments/assets/1a9235b6-8b57-45e6-bcf4-0a2417dea750" />
+
+<img width="1470" height="647" alt="Zrzut ekranu 2025-08-3 o 11 01 57" src="https://github.com/user-attachments/assets/ba75ff5a-1ed2-4792-b27b-849acb212651" />
+
 ## Instalacja i Uruchomienie
 
 ### Wymagania
