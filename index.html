@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planer Treningów Siłownia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tab-add-workout">
+    <div class="container">
+        <header>
+            <h1>Planer Treningów Siłownia</h1>
+            <p>Stwórz swój idealny plan treningowy</p>
+        </header>
+
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="add-workout">
+                <span class="tab-icon">➕</span>
+                Dodaj Trening
+            </button>
+            <button class="tab-btn" data-tab="weekly-plan">
+                <span class="tab-icon">📅</span>
+                Plan Tygodniowy
+            </button>
+            <button class="tab-btn" data-tab="statistics">
+                <span class="tab-icon">📊</span>
+                Statystyki
+            </button>
+        </nav>
+
+        <div class="main-content">
+            <div class="tab-content active" id="add-workout-tab">
+                <div class="add-workout-panel">
+                    <h2>Dodaj nowy trening</h2>
+                    <form id="workout-form">
+                        <div class="form-group">
+                            <label for="workout-name">Nazwa treningu:</label>
+                            <input type="text" id="workout-name" placeholder="np. Klatka piersiowa + triceps" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="workout-day">Dzień tygodnia:</label>
+                            <select id="workout-day" required>
+                                <option value="">Wybierz dzień</option>
+                                <option value="Poniedziałek">Poniedziałek</option>
+                                <option value="Wtorek">Wtorek</option>
+                                <option value="Środa">Środa</option>
+                                <option value="Czwartek">Czwartek</option>
+                                <option value="Piątek">Piątek</option>
+                                <option value="Sobota">Sobota</option>
+                                <option value="Niedziela">Niedziela</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="muscle-groups">Partie mięśniowe:</label>
+                            <div class="muscle-groups-container">
+                                <label><input type="checkbox" value="Klatka piersiowa"> Klatka piersiowa</label>
+                                <label><input type="checkbox" value="Plecy"> Plecy</label>
+                                <label><input type="checkbox" value="Ramiona"> Ramiona</label>
+                                <label><input type="checkbox" value="Biceps"> Biceps</label>
+                                <label><input type="checkbox" value="Triceps"> Triceps</label>
+                                <label><input type="checkbox" value="Nogi"> Nogi</label>
+                                <label><input type="checkbox" value="Pośladki"> Pośladki</label>
+                                <label><input type="checkbox" value="Brzuch"> Brzuch</label>
+                                <label><input type="checkbox" value="Przedramiona"> Przedramiona</label>
+                                <label><input type="checkbox" value="Łydki"> Łydki</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="workout-duration">Czas treningu (minuty):</label>
+                            <input type="number" id="workout-duration" min="15" max="240" placeholder="60">
+                        </div>
+
+                        <button type="submit">Dodaj trening</button>
+                    </form>
+                </div>
+
+                <div class="exercises-panel" id="exercises-panel" style="display: none;">
+                    <h2>Dodaj ćwiczenia do treningu</h2>
+                    <div class="current-workout-info">
+                        <p><strong>Aktualny trening:</strong> <span id="current-workout-name"></span></p>
+                        <p><strong>Dzień:</strong> <span id="current-workout-day"></span></p>
+                    </div>
+                    
+                    <form id="exercise-form">
+                        <div class="form-group">
+                            <label for="exercise-name">Nazwa ćwiczenia:</label>
+                            <input type="text" id="exercise-name" placeholder="np. Wyciskanie sztangi na ławce" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="exercise-sets">Serie:</label>
+                                <input type="number" id="exercise-sets" min="1" max="10" placeholder="3" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="exercise-reps">Powtórzenia:</label>
+                                <input type="text" id="exercise-reps" placeholder="8-12" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="exercise-weight">Ciężar (kg):</label>
+                                <input type="text" id="exercise-weight" placeholder="60">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exercise-notes">Notatki:</label>
+                            <textarea id="exercise-notes" placeholder="Dodatkowe uwagi..."></textarea>
+                        </div>
+                        
+                        <div class="exercise-buttons">
+                            <button type="submit">Dodaj ćwiczenie</button>
+                            <button type="button" id="finish-workout">Zakończ trening</button>
+                        </div>
+                    </form>
+                    
+                    <div class="current-exercises">
+                        <h3>Ćwiczenia w tym treningu:</h3>
+                        <ul id="exercises-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="weekly-plan-tab">
+                <div class="weekly-plan-enhanced">
+                    <h2>Plan tygodniowy i kalendarz</h2>
+                    
+                    <div class="weekly-plan">
+                        <h3>Aktualny tydzień</h3>
+                        <div class="week-grid">
+                            <div class="day-column" data-day="Poniedziałek">
+                                <h4>Poniedziałek</h4>
+                                <div class="workouts-container"></div>
+                            </div>
+                            <div class="day-column" data-day="Wtorek">
+                                <h4>Wtorek</h4>
+                                <div class="workouts-container"></div>
+                            </div>
+                            <div class="day-column" data-day="Środa">
+                                <h4>Środa</h4>
+                                <div class="workouts-container"></div>
+                            </div>
+                            <div class="day-column" data-day="Czwartek">
+                                <h4>Czwartek</h4>
+                                <div class="workouts-container"></div>
+                            </div>
+                            <div class="day-column" data-day="Piątek">
+                                <h4>Piątek</h4>
+                                <div class="workouts-container"></div>
+                            </div>
+                            <div class="day-column" data-day="Sobota">
+                                <h4>Sobota</h4>
+                                <div class="workouts-container"></div>
+                            </div>
+                            <div class="day-column" data-day="Niedziela">
+                                <h4>Niedziela</h4>
+                                <div class="workouts-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-section">
+                        <h3>Kalendarz miesięczny</h3>
+                        <div class="calendar-header">
+                            <button id="prev-month" class="nav-btn">‹</button>
+                            <h4 id="current-month">Sierpień 2025</h4>
+                            <button id="next-month" class="nav-btn">›</button>
+                        </div>
+                        
+                        <div class="calendar-grid" id="calendar-grid">
+                        </div>
+                    </div>
+                    
+                    <div class="daily-checklist-section">
+                        <h3>Dzisiejsze zadania</h3>
+                        <div class="daily-checklist">
+                            <div id="daily-tasks">
+                                <div class="task-item">
+                                    <input type="checkbox" id="water-task">
+                                    <label for="water-task">Wypij 2L wody 💧</label>
+                                </div>
+                                <div class="task-item">
+                                    <input type="checkbox" id="steps-task">
+                                    <label for="steps-task">10,000 kroków 🚶‍♂️</label>
+                                </div>
+                                <div class="task-item">
+                                    <input type="checkbox" id="protein-task">
+                                    <label for="protein-task">Protein po treningu 🥤</label>
+                                </div>
+                                <div class="task-item">
+                                    <input type="checkbox" id="sleep-task">
+                                    <label for="sleep-task">8h snu 😴</label>
+                                </div>
+                            </div>
+                            
+                            <div class="add-custom-task">
+                                <input type="text" id="custom-task-input" placeholder="Dodaj własne zadanie...">
+                                <button id="add-task-btn">Dodaj</button>
+                            </div>
+                        </div>
+                        
+                        <div class="workout-history">
+                            <h4>Historia treningów</h4>
+                            <div id="workout-history-list">
+                                <!-- Historia będzie generowana przez JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="statistics-tab">
+                <div class="stats-panel">
+                    <h2>Statystyki i Zarządzanie</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3 id="total-workouts">0</h3>
+                            <p>Treningi w tygodniu</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 id="total-exercises">0</h3>
+                            <p>Łączna liczba ćwiczeń</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 id="total-time">0</h3>
+                            <p>Całkowity czas (min)</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 id="most-trained">-</h3>
+                            <p>Najczęściej trenowana partia</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Charts -->
+                    <div class="progress-section">
+                        <h3>Postęp treningowy</h3>
+                        <div class="progress-charts">
+                            <div class="chart-item">
+                                <h4>Partie mięśniowe</h4>
+                                <canvas id="muscleChart" width="300" height="200"></canvas>
+                            </div>
+                            <div class="chart-item">
+                                <h4>Aktywność w tygodniu</h4>
+                                <canvas id="weekChart" width="300" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Body Stats Section -->
+                    <div class="body-stats-section">
+                        <h3>Statystyki ciała i postęp</h3>
+                        
+                        <!-- Formularz dodawania pomiarów -->
+                        <div class="measurements-form">
+                            <h4>Dodaj pomiar</h4>
+                            <form id="measurement-form">
+                                <div class="form-row-stats">
+                                    <div class="form-group-small">
+                                        <label for="weight-input">Waga (kg)</label>
+                                        <input type="number" id="weight-input" step="0.1" min="30" max="300" required>
+                                    </div>
+                                    <div class="form-group-small">
+                                        <label for="height-input">Wzrost (cm)</label>
+                                        <input type="number" id="height-input" min="100" max="250" required>
+                                    </div>
+                                    <div class="form-group-small">
+                                        <label for="body-fat-input">% tłuszczu (opcjonalnie)</label>
+                                        <input type="number" id="body-fat-input" step="0.1" min="0" max="50">
+                                    </div>
+                                    <div class="form-group-small">
+                                        <label for="measurement-date">Data</label>
+                                        <input type="date" id="measurement-date" required>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-measurement-btn" class="add-measurement-btn">📊 Dodaj pomiar</button>
+                            </form>
+                        </div>
+                        
+                        <div class="current-stats">
+                            <div class="bmi-card">
+                                <h4>Aktualne BMI</h4>
+                                <div class="bmi-value" id="current-bmi">-</div>
+                                <div class="bmi-category" id="bmi-category">Brak danych</div>
+                            </div>
+                            <div class="weight-goal-card">
+                                <h4>Cel wagowy</h4>
+                                <div class="goal-form">
+                                    <input type="number" id="weight-goal-input" placeholder="Cel (kg)" step="0.1">
+                                    <button id="set-goal-btn">Ustaw cel</button>
+                                </div>
+                                <div class="goal-progress" id="goal-progress" style="display: none;">
+                                    <div class="goal-info">
+                                        <span>Cel: <strong id="goal-weight">-</strong> kg</span>
+                                        <span>Pozostało: <strong id="weight-remaining">-</strong> kg</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Wykres wagi -->
+                        <div class="weight-chart-container">
+                            <h4>Postęp wagi</h4>
+                            <canvas id="weightChart" width="600" height="300"></canvas>
+                        </div>
+                        
+                        <!-- Lista pomiarów -->
+                        <div class="measurements-history">
+                            <h4>Historia pomiarów</h4>
+                            <div id="measurements-list">
+                                <p style="color: #718096; font-style: italic; text-align: center;">Brak pomiarów</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Management buttons -->
+                    <div class="management-section">
+                        <h3>Zarządzanie danymi</h3>
+                        <div class="management-buttons">
+                            <button onclick="planner.exportData()" class="management-btn">
+                                <span>📄</span> Eksportuj plan
+                            </button>
+                            <button onclick="document.getElementById('import-file').click()" class="management-btn">
+                                <span>📁</span> Importuj plan
+                            </button>
+                            <button onclick="planner.generateSamplePlan()" class="management-btn">
+                                <span>🏋️‍♂️</span> Przykładowy plan
+                            </button>
+                            <button onclick="planner.clearAllData()" class="management-btn delete-btn">
+                                <span>🗑️</span> Wyczyść wszystko
+                            </button>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <!-- Cele i Notatki -->
+                    <div class="goals-section">
+                        <h3>Cele i Notatki treningowe</h3>
+                        <div class="goals-notes">
+                            <textarea id="goals-textarea" placeholder="Zapisz swoje cele treningowe, plany na przyszłość, uwagi o postępach..."></textarea>
+                            <button id="save-goals-btn">Zapisz cele</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal do podglądu treningu -->
+        <div id="workout-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modal-workout-title"></h2>
+                <div id="modal-workout-details"></div>
+                <div class="modal-actions">
+                    <button id="edit-workout">Edytuj</button>
+                    <button id="delete-workout" class="delete-btn">Usuń trening</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
